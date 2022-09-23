@@ -1,0 +1,76 @@
+
+
+<h1 class="mt-5">Selectores anidados</h1>
+<hr>
+
+<form autocomplete="off" [formGroup]="mainForm" (ngSubmit)="guardar()">
+
+    <!-- Region -->
+    <div class="row mb-3">
+        <label for="cmbContinente" class="form-label col-3 text-end">Continente:</label>
+        <div class="col-9">
+            <select id="cmbContinente"
+                class="form-control"
+                formControlName="region">
+                <option value=""> -- Continente -- </option>
+                <option *ngFor="let region of regiones"
+                    [value]="region | lowercase"> {{ region }} </option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Pais -->
+    <div class="row mb-3" *ngIf="paises.length > 0">
+        <label for="cmbPais" class="form-label col-3 text-end">Pais:</label>
+        <div class="col-9">
+            <select id="cmbPais"
+                class="form-control"
+                formControlName="pais">
+                <option value=""> -- Pais -- </option>
+                <option *ngFor="let pais of paises"
+                    [value]="pais.cca3"> {{ pais.name.common }} </option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Frontera -->
+    <div class="row mb-3" *ngIf="fronteras.length > 0">
+        <label for="cmbFrontera" class="form-label col-3 text-end">Frontera:</label>
+        <div class="col-9">
+            <select id="cmbFrontera"
+                class="form-control"
+                formControlName="frontera">
+                <option value=""> -- Frontera -- </option>
+                <option *ngFor="let frontera of fronteras"
+                    [value]="frontera.cca3"> {{ frontera.name.common }} </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="cargando">
+        <div class="col-3"></div>
+        <div class="col-9">
+            <div class="alert alert-primary">
+                Cargando...
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
+            <button type="button"
+                class="btn btn-primary float-end"
+                (click)="guardar()">
+                Guardar
+            </button>
+        </div>
+    </div>
+</form>
+
+
+<h3>Formulario</h3>
+<span>Valid</span>
+<pre>{{ mainForm.valid | json }}</pre>
+<span>Value</span>
+<pre>{{ mainForm.value | json }}</pre>
+
